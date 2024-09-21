@@ -6,7 +6,17 @@ using UnityEngine;
 public class CharacterStat : MonoBehaviour
 {
     [SerializeField] private float healthMax = 50f;
+    public float HealthMax
+    {
+        get { return healthMax; }
+        set { healthMax = value; }
+    }
     [SerializeField] private float healthCurrent;
+    public float HealthCurrent
+    {
+        get { return healthCurrent; }
+        set { healthCurrent = value; }
+    }
     [SerializeField] private float attackDamage; //{ get; set; }
     public float AttackDamage
     {

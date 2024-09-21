@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -511, y: -437.5}
+  m_AnchoredPosition: {x: 483, y: 420}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &59698790
@@ -204,7 +204,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 59698791}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2115120496}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: DoDamageToPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &59698791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da73ad83df2c2a438b413c426499a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageValueToPlayer: 0
   healthEnemy: 100
+  playerMoveController: {fileID: 0}
 --- !u!65 &417939023
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -856,6 +870,7 @@ MonoBehaviour:
   _rb: {fileID: 519812919}
   charStat: {fileID: 519812925}
   canAttack: 1
+  hpBar: {fileID: 0}
 --- !u!114 &519812925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,7 +884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthMax: 50
-  healthCurrent: 0
+  healthCurrent: 40
   attackDamage: 10
   attackDamageInterval: 20
 --- !u!1 &579762838
@@ -1809,7 +1824,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da73ad83df2c2a438b413c426499a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageValueToPlayer: 10
   healthEnemy: 100
+  playerMoveController: {fileID: 519812924}
 --- !u!54 &2115120497
 Rigidbody:
   m_ObjectHideFlags: 0

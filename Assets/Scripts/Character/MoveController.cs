@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +10,17 @@ public class MoveController : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private CharacterStat charStat;
     [SerializeField]private bool canAttack = true;
+    
+    // hp bar ref
+    [SerializeField] private PlayerHealthbar hpBar;
 
-    // Update is called once per frame
+
+    private void Start()
+    {
+        // set hpBar to playerHP
+       hpBar.SetMaxHealth(charStat.HealthMax);
+    }
+
     void Update()
     {
         Movement();
@@ -49,5 +59,12 @@ public class MoveController : MonoBehaviour
         canAttack = false;
         yield return new WaitForSeconds(timeToWait);
         canAttack = true;
+    }
+
+
+
+    public void PlayerTakeDamage(float damage)
+    {
+       charStat.HealthCurrent -= damage;
     }
 }
