@@ -14,6 +14,10 @@ public class MoveController : MonoBehaviour
     // hp bar ref
     [SerializeField] private PlayerHealthbar hpBar;
 
+    private void UpdateHPBar()
+    {
+        hpBar.SetCurrentHealth(charStat.HealthCurrent);
+    }
 
     private void Start()
     {
@@ -66,5 +70,6 @@ public class MoveController : MonoBehaviour
     public void PlayerTakeDamage(float damage)
     {
        charStat.HealthCurrent -= damage;
+       UpdateHPBar();
     }
 }
