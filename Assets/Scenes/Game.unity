@@ -510,6 +510,8 @@ MonoBehaviour:
   circleDistanceFromPlayer: 0
   circleDistanceFromPlayerMax: 0
   _enemy: {fileID: 7091213013966058436, guid: ae4db6967c791c44eb45ce7ff0722e7a, type: 3}
+  _playerCoordinates: {x: 0, y: 0, z: 0}
+  player: {fileID: 753641599}
   _hpBar: {fileID: 8471291039337933934, guid: 16b7308a95d1ce240ab8cc978df01c62, type: 3}
   parentWhereInstate: {fileID: 321097304}
   parentHP: {fileID: 1086884503}
