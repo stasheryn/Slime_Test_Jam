@@ -12,6 +12,7 @@ public class EnemyManager : MonoBehaviour
 
     // parent for hold in CanvaWorldCoord object
     [SerializeField] private Transform parentWhereInstate;
+    [SerializeField] private Transform parentHP;
 
 
     void Start()
@@ -34,15 +35,16 @@ public class EnemyManager : MonoBehaviour
         Vector3 pos = transform.position + new Vector3(x, 0, z);
 
         // спитати якщо-що за спавн в ієрархії інспектора
-        var enemyDoll = Instantiate(_enemy, pos, Quaternion.identity, parentWhereInstate);
+        var enemyDoll = Instantiate(_enemy, posToSpawn, Quaternion.identity, parentWhereInstate);
         
         // створити метод який асайнить префаб у скрипт, викликати цей метод тут після інстаншуювання першого
         //Instantiate(_hpBar)
         //_enemy.hpBar=_hpBar;
         
         // виправити парента
-        var enemyDollHP = Instantiate(_hpBar, pos, Quaternion.identity, parentWhereInstate);
+        var enemyDollHP = Instantiate(_hpBar, posToSpawn, Quaternion.identity, parentHP);
         enemyDoll.AddReference(enemyDollHP);
+        enemyDollHP.AddReferenceTrans(enemyDoll.transform);
         // test
     }
 }
