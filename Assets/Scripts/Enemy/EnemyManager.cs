@@ -7,7 +7,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float circleDistanceFromPlayer;
     [SerializeField] private float circleDistanceFromPlayerMax;
     [SerializeField] private Enemy _enemy;
-    [SerializeField] private Vector3 _playerCoordinates;
+    //[SerializeField] private Vector3 _playerCoordinates;
     [SerializeField] private Transform player;
     [SerializeField] private EnemyHealthbar _hpBar;
 
