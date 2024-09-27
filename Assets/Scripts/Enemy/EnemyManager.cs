@@ -14,6 +14,7 @@ public class EnemyManager : MonoBehaviour
     // parent for hold in CanvaWorldCoord object
     [SerializeField] private Transform parentWhereInstate;
     [SerializeField] private Transform parentHP;
+    [SerializeField] private CharacterStat _playerStat;
 
 
     void Start()
@@ -75,9 +76,11 @@ public class EnemyManager : MonoBehaviour
         //Instantiate(_hpBar)
         //_enemy.hpBar=_hpBar;
 
-        // виправити парента
+        
         var enemyDollHP = Instantiate(_hpBar, posToSpawn, Quaternion.identity, parentHP);
-        enemyDoll.AddReference(enemyDollHP);
+        // асайгн референсів до клонів (бо немона в префабах так робити) 
+        enemyDoll.AddHpbarReference(enemyDollHP);
+        enemyDoll.AddCharacterReference(_playerStat);
         enemyDollHP.AddReferenceTrans(enemyDoll.transform);
         // test
     }

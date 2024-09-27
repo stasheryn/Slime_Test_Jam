@@ -6,18 +6,23 @@ using UnityEngine;
 public class CharacterStat : MonoBehaviour
 {
     [SerializeField] private float healthMax = 50f;
+
     public float HealthMax
     {
         get { return healthMax; }
         set { healthMax = value; }
     }
+
     [SerializeField] private float healthCurrent;
+
     public float HealthCurrent
     {
         get { return healthCurrent; }
         set { healthCurrent = value; }
     }
+
     [SerializeField] private float attackDamage; //{ get; set; }
+
     public float AttackDamage
     {
         get { return attackDamage; }
@@ -25,22 +30,96 @@ public class CharacterStat : MonoBehaviour
     }
 
     [SerializeField] private float attackDamageInterval;
+
     public float AttackDamageInterval
     {
         get { return attackDamageInterval; }
         set { attackDamageInterval = value; }
     }
 
+    #region ExpImplement
+
+    [Header("Lvl data and obj")] [SerializeField]
+    private PlayerExpbar expBar;
+
+    //контейнер зі значеннями до наступн рівня, ex: int[0] -> from_0 to_1 Lvl {110}
+    [SerializeField] private PlayerLvlups playerLvlSys;
+    [SerializeField] private int playerCurrentLvl;
+    [SerializeField] private int expCurrent;
+    [SerializeField] private int expToNextLvl;
+
+    // викликатиметься у енемі після/під час смерті
+    public void AddExpFromEnemyDeath(int exp)
+    {
+        // LvlUp + 0 Bar
+        if (expCurrent + exp >= expToNextLvl)
+        {
+            playerCurrentLvl++;
+            // мб можна без темпВар і в один рядок написати
+            int tempVar = expCurrent + exp;
+            expCurrent = tempVar - expToNextLvl;
+            // change max amount to next lvl
+            ExpToNextLevel();
+            // update UI
+            expBar.UpdateMaxExp(expToNextLvl, expCurrent);
+        }
+        else
+        {
+            expCurrent += exp;
+            expBar.UpdateExp(expCurrent);
+            //expBar.AddExp(exp);
+        }
+    }
+
+    public void ExpToNextLevel()
+    {
+        expToNextLvl = playerLvlSys.levelUp[playerCurrentLvl];
+    }
+
+    private void XPBarStartUpdate()
+    {
+        playerCurrentLvl = 0;
+        ExpToNextLevel();
+        expBar.UpdateMaxExp(expToNextLvl, expCurrent);
+    }
+
+    #endregion
+
+    #region PowersPanel
+
+    [Header("Lvl Up Panel data")] [SerializeField]
+    private PowersPanel pointsPanel;
+
+    #endregion
+
+    #region HPBar_And_TakeDamage_Implementation
+
+    [Header("HPBar")]
+    // hp bar ref
+    [SerializeField]
+    private PlayerHealthbar hpBar;
+
+    private void UpdateHPBar()
+    {
+        hpBar.SetCurrentHealth(healthCurrent);
+    }
+
+    public void PlayerTakeDamage(float damage)
+    {
+        healthCurrent -= damage;
+        UpdateHPBar();
+    }
+
+    #endregion
+
     private void Start()
     {
         healthCurrent = healthMax;
-        // update ui if need
+        // set hpBar to playerHP
+        hpBar.SetMaxHealth(healthMax);
+        // update UI xpBar ?
+        XPBarStartUpdate();
 
         //attackDamageInterval = 0.3f;
-    }
-
-    public void CharacterTakeDamage(float damageValue)
-    {
-        healthCurrent -= damageValue;
     }
 }

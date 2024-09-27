@@ -7,18 +7,18 @@ public class PlayerExpbar : MonoBehaviour
 {
     public Slider slider;
 
-    public void UpdateMaxExp(int maxExpAmount)
+    public void UpdateMaxExp(int expAmountToNextLevel, int currentExp)
     {
-        // refactor
-        slider.maxValue = maxExpAmount;
-        slider.value = 0;
+        slider.maxValue = expAmountToNextLevel;
+        slider.value = currentExp;
     }
     
     
     // рухає саме значення  слайдера
-    public void AddExp(int addAmountExp)
+    public void UpdateExp(int amountExp)
     {
-        slider.value += addAmountExp;
+        // якщо будуть глічі з UI баром, переробити через додавання
+        slider.value = amountExp;
     }
 
 }
