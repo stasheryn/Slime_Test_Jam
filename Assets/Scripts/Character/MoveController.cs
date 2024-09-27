@@ -13,6 +13,7 @@ public class MoveController : MonoBehaviour
     
     // hp bar ref
     [SerializeField] private PlayerHealthbar hpBar;
+    [SerializeField] private PlayerHealthbar expBar;
 
     private void UpdateHPBar()
     {
