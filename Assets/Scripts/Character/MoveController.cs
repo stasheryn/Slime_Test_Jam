@@ -10,7 +10,11 @@ public class MoveController : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private CharacterStat charStat;
     [SerializeField] private bool canAttack = true;
-    
+
+    public void ChangeSpeed(float newSpeed)
+    {
+        _speed = newSpeed;
+    }
 
     void Update()
     {

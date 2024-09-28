@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CharacterStat : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class CharacterStat : MonoBehaviour
         set { attackDamage = value; }
     }
 
+    [SerializeField] private float attackDamageAmplifier;
+
     [SerializeField] private float attackDamageInterval;
 
     public float AttackDamageInterval
@@ -36,7 +39,12 @@ public class CharacterStat : MonoBehaviour
         get { return attackDamageInterval; }
         set { attackDamageInterval = value; }
     }
-
+    [Header("Speed after refactor AND MVController")]
+    [SerializeField] private MoveController playerController;
+    [SerializeField] private float speed;
+    [SerializeField] private float speedAmplifier;
+    [SerializeField] private float defence;
+    [SerializeField] private float defenceAmplifier;
     #region ExpImplement
 
     [Header("Lvl data and obj")] [SerializeField]
@@ -87,8 +95,18 @@ public class CharacterStat : MonoBehaviour
 
     #region PowersPanel
 
-    [Header("Lvl Up Panel data")] [SerializeField]
-    private PowersPanel pointsPanel;
+    public void CallToMvController()
+    {
+        playerController.ChangeSpeed(speed+speedAmplifier);
+    }
+    public void ReceivePowerUps(int powerAmp, int speedAmp, int defenceAmp)
+    {
+        attackDamageAmplifier = powerAmp;
+        speedAmplifier = speedAmp;
+        defenceAmplifier = defenceAmp;
+        //
+        CallToMvController();
+    }
 
     #endregion
 
