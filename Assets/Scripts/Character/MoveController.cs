@@ -10,10 +10,20 @@ public class MoveController : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private CharacterStat charStat;
     [SerializeField] private bool canAttack = true;
-
+    // хз нащо взагалі мати таку змінну?
+    [SerializeField] private Collider _colliderToAttack;
+    
     public void ChangeSpeed(float newSpeed)
     {
         _speed = newSpeed;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<Enemy>().TakeDamage(charStat);
+        }
     }
 
     void Update()
@@ -47,11 +57,17 @@ public class MoveController : MonoBehaviour
 
     private IEnumerator AttackTime(float timeToWait)
     {
+        //
+        canAttack = false;
+        
+        
+        // візуально показує колайдер
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        
         yield return new WaitForSeconds(0.2f);
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
 
-        canAttack = false;
+        
         yield return new WaitForSeconds(timeToWait);
         canAttack = true;
     }
