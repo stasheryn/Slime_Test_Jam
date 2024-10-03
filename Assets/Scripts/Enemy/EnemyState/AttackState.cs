@@ -35,6 +35,8 @@ public class AttackState : EnemyState
         canAttack = false;
         timer = dataOfThisEnemy.attackDelay;
         yield return new WaitForSeconds(timer);
+
+
         canAttack = true;
     }
 }

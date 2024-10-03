@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     {
         hpBar.SetMaxHealth(healthMax);
         // setup for States?
-        agent = gameObject.GetComponentInParent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         enemyAttackState.SetupNavagent(agent, playerStat, this);
         enemyChaseState.SetupNavagent(agent, playerStat, this);
 
