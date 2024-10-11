@@ -50,6 +50,10 @@ public class CharacterStat : MonoBehaviour
     [Header("Lvl data and obj")] [SerializeField]
     private PlayerExpbar expBar;
 
+    public delegate void PlayerLvlup();
+
+    public static PlayerLvlup onLvlup;
+
     //контейнер зі значеннями до наступн рівня, ex: int[0] -> from_0 to_1 Lvl {110}
     [SerializeField] private PlayerLvlups playerLvlSys;
     [SerializeField] private int playerCurrentLvl;
@@ -63,6 +67,7 @@ public class CharacterStat : MonoBehaviour
         if (expCurrent + exp >= expToNextLvl)
         {
             playerCurrentLvl++;
+            onLvlup();
             // мб можна без темпВар і в один рядок написати
             int tempVar = expCurrent + exp;
             expCurrent = tempVar - expToNextLvl;
@@ -126,6 +131,10 @@ public class CharacterStat : MonoBehaviour
     {
         healthCurrent -= damage;
         UpdateHPBar();
+        if (healthCurrent <= 0)
+        {
+            GameOver.gameOver();
+        }
     }
 
     #endregion

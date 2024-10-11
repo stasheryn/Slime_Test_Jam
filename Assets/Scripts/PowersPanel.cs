@@ -158,7 +158,9 @@ public class PowersPanel : MonoBehaviour
 
     private void Start()
     {
-        currentPoints = maxPoints;
+        // потім десь відписатись он дез етс...
+        CharacterStat.onLvlup += PlayerLvlUp;
+        //currentPoints = maxPoints;
         UpdateCurrentPoints();
     }
     
@@ -186,5 +188,11 @@ public class PowersPanel : MonoBehaviour
         UpdateCurrentPoints();
         // калбек в чарСтат щодо характеристик
         playerStat.ReceivePowerUps(powerBlocked, speedBlocked, defenceBlocked);
+    }
+
+    public void PlayerLvlUp()
+    {
+        currentPoints++;
+        UpdateCurrentPoints();
     }
 }

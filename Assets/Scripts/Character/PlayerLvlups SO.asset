@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3507f37c47ed948a1d2f8c12a47ad5, type: 3}
   m_Name: PlayerLvlups SO
   m_EditorClassIdentifier: 
-  levelUp: 640000007800000091000000
+  levelUp: 640000007800000091000000a0000000aa000000b4000000
   stackable: 1
