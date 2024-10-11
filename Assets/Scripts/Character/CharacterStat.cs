@@ -131,6 +131,10 @@ public class CharacterStat : MonoBehaviour
     {
         healthCurrent -= damage;
         UpdateHPBar();
+        if (healthCurrent <= 0)
+        {
+            GameOver.gameOver();
+        }
     }
 
     #endregion

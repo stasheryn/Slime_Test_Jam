@@ -28,7 +28,8 @@ public class MoveController : MonoBehaviour
 
     void Update()
     {
-        Movement();
+        // UNCOMMENT LATER
+        //Movement();
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Space is presed");
@@ -73,5 +74,14 @@ public class MoveController : MonoBehaviour
     }
 
     #endregion
-    
+
+    public void offControll()
+    {
+        enabled = false;
+    }
+
+    private void Start()
+    {
+        GameOver.gameOver += offControll;
+    }
 }
