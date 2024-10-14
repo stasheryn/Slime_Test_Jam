@@ -28,4 +28,18 @@ public class ControllerPlayenemy : MonoBehaviour
     {
         Movement();
     }
+
+    public void SetGravOff()
+    {
+        _rb.useGravity = false;
+    }
+
+    public void SetGravOn()
+    {
+        _rb.useGravity = true;
+    }
+    // public void SetChildOf()
+    // {
+    //     
+    // }
 }
