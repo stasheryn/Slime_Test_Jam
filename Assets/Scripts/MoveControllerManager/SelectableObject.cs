@@ -33,7 +33,6 @@ public class SelectableObject : MonoBehaviour
         // при нажиманні на цей обж(req obj to have this script)
         // добавити сюди префаб підказки(юі) і спавнити в ворлдКанвас + (мб зробити пул обджект 5-10шт)
 
-        ManagerController.Instance.AddCurrentCharacter(this.GetComponent<ControllerPlayenemy>());
         ManagerController.Instance.AddTargetCharacter(this.GetComponent<ControllerPlayenemy>());
         // колір можна брати з якогось статік класу через Instance
         _renderer.material.color = Color.yellow;

@@ -7,12 +7,13 @@ using DG.Tweening;
 public class ManagerController : MonoBehaviour
 {
     // вкл / викл скрипти на Обєктах
-    [SerializeField] private ControllerPlayenemy characterCurrent;
+    
     [SerializeField] private ControllerPlayenemy characterByDefault;
     [SerializeField] private ControllerPlayenemy characterTarget;
     private bool isSlimeControllSmbdy;
     private bool isCanGoGround;
     private bool isCdOnTakeControll;
+    private bool isActiveHostageEmnemy;
     private PositionFollow playerFollowScript;
     
     public static ManagerController Instance { get; private set; }
@@ -78,6 +79,8 @@ public class ManagerController : MonoBehaviour
         {
             if (!isSlimeControllSmbdy && !isCdOnTakeControll)
             {
+                // баг з керуванням
+                isActiveHostageEmnemy = true;
                 MoveSlimeToEnemyBody();
             }
             else
@@ -90,17 +93,18 @@ public class ManagerController : MonoBehaviour
     private void SwitchControll()
     {
         characterByDefault.enabled = !characterByDefault.enabled;
-        characterCurrent.enabled = !characterCurrent.enabled;
+        characterTarget.enabled = !characterTarget.enabled;
     }
-
-    public void AddCurrentCharacter(ControllerPlayenemy _characterCurrent)
-    {
-        characterCurrent = _characterCurrent;
-    }
+    
 
     public void AddTargetCharacter(ControllerPlayenemy _characterTarget)
     {
-        characterTarget = _characterTarget;
+        // метод вище можна видалити + запхати сюди іфку яка працює з початку, на ворогу ніт, після злізання працює
+        
+        if (!isActiveHostageEmnemy)
+        {
+            characterTarget = _characterTarget;
+        }
     }
 
     public void TryGetGround()
@@ -121,6 +125,8 @@ public class ManagerController : MonoBehaviour
             //
             isSlimeControllSmbdy = false;
             SwitchControll();
+            //
+            isActiveHostageEmnemy = false;
         }
     }
 
