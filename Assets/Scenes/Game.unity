@@ -5369,7 +5369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287a43b0f10dc87438d7775764dd4e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterCurrent: {fileID: 0}
   characterByDefault: {fileID: 753641600}
   characterTarget: {fileID: 0}
 --- !u!1 &1182546302

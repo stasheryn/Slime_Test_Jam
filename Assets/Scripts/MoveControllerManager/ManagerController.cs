@@ -75,6 +75,7 @@ public class ManagerController : MonoBehaviour
         // }
         
         // можна в окремий метод натискання клавіш винести?
+        // можна винести в окремий паблік метод який буде викликати ІнпутКлас (андроїд / ПК)
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (!isSlimeControllSmbdy && !isCdOnTakeControll)
@@ -82,10 +83,12 @@ public class ManagerController : MonoBehaviour
                 // баг з керуванням
                 isActiveHostageEmnemy = true;
                 MoveSlimeToEnemyBody();
+                // addExtraHPBar;
             }
             else
             {
                 TryGetGround();
+                // removeExtraHPBar;
             }
         }
     }
@@ -145,6 +148,8 @@ public class ManagerController : MonoBehaviour
         else
         {
             Debug.Log(" U dont have enemy to hostage it");
+            // 24.10
+            isActiveHostageEmnemy = false;
         }
     }
     public void FollowAferTween()
@@ -167,4 +172,16 @@ public class ManagerController : MonoBehaviour
         // coroutine
         isCdOnTakeControll = false;
     }
+
+    public void RemoveExtraHPBar()
+    {
+        
+        // add CallBack to HPBar.cs ? на зміну слайдера+розміру+вкл\викл дод хп
+    }
+    public void AddExtraHPBar()
+    {
+        
+        // add CallBack to HPBar.cs ? на зміну слайдера+розміру+вкл\викл дод хп
+    }
+    
 }

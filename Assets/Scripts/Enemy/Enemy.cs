@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
 
     // abstr state?
     private EnemyState enemyState;
+    
 
 
     private void Start()
@@ -107,6 +108,11 @@ public class Enemy : MonoBehaviour
     public void AddCharacterReference(CharacterStat playerChar)
     {
         playerStat = playerChar;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        
     }
 }
 

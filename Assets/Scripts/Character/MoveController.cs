@@ -41,8 +41,9 @@ public class MoveController : MonoBehaviour
 
     private void Movement()
     {
+        // десь в мувмент де Y позиція = 0 є баг
         var dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        //transform.Translate(dir * (_speed * Time.deltaTime));
+        // transform.Translate(dir * (_speed * Time.deltaTime));
         _rb.velocity = dir * _speed;
     }
 
