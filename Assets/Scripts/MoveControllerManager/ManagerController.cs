@@ -10,11 +10,22 @@ public class ManagerController : MonoBehaviour
     
     [SerializeField] private ControllerPlayenemy characterByDefault;
     [SerializeField] private ControllerPlayenemy characterTarget;
+    // 25.10.2024 мб добавити треба 3й
+    [SerializeField] private ControllerPlayenemy characterForControl;
+    [SerializeField] private bool controlDefault = true;
+    //
+    [SerializeField] private WindowsController controller;
+    // 25.10.2024 мб добавити треба 3й
     private bool isSlimeControllSmbdy;
     private bool isCanGoGround;
     private bool isCdOnTakeControll;
     private bool isActiveHostageEmnemy;
     private PositionFollow playerFollowScript;
+
+    // public ControllerPlayenemy GiveRefForControll()
+    // {
+    //     return characterForControl;
+    // }
     
     public static ManagerController Instance { get; private set; }
 
@@ -35,6 +46,9 @@ public class ManagerController : MonoBehaviour
     private void Start()
     {
         playerFollowScript = characterByDefault.GetComponent<PositionFollow>();
+        // 25.10.2024
+        characterForControl = characterByDefault;
+        controller.GetPersonToControl(characterForControl);
     }
     private void Update()
     {
@@ -42,38 +56,6 @@ public class ManagerController : MonoBehaviour
     }
     public void ChangeBodyController()
     {
-        // if (Input.GetKeyDown(KeyCode.E))
-        // {
-        //     // List Char 0
-        //     for (int i = 0; i < possibleCharacters.Count; i++)
-        //     {
-        //         if (i != 0)
-        //         {
-        //             possibleCharacters[i].enabled = false;
-        //         }
-        //         else
-        //         {
-        //             possibleCharacters[i].enabled = true;
-        //         }
-        //     }
-        // }
-        //
-        // if (Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     // List Char 1
-        //     for (int i = 0; i < possibleCharacters.Count; i++)
-        //     {
-        //         if (i != 1)
-        //         {
-        //             possibleCharacters[i].enabled = false;
-        //         }
-        //         else
-        //         {
-        //             possibleCharacters[i].enabled = true;
-        //         }
-        //     }
-        // }
-        
         // можна в окремий метод натискання клавіш винести?
         // можна винести в окремий паблік метод який буде викликати ІнпутКлас (андроїд / ПК)
         if (Input.GetKeyDown(KeyCode.R))
@@ -95,8 +77,24 @@ public class ManagerController : MonoBehaviour
 
     private void SwitchControll()
     {
-        characterByDefault.enabled = !characterByDefault.enabled;
-        characterTarget.enabled = !characterTarget.enabled;
+        // characterByDefault.enabled = !characterByDefault.enabled;
+        // characterTarget.enabled = !characterTarget.enabled;
+        // 25.10.2024
+        if (controlDefault)
+        {
+            characterForControl = characterTarget;
+            // зміна тегів для отримання дмдж
+            characterTarget.AmPlayerNow();
+            characterByDefault.AmEnemyNow();
+        }
+        else
+        {
+            characterForControl = characterByDefault;
+            characterTarget.AmEnemyNow();
+            characterByDefault.AmPlayerNow();
+        }
+        controller.GetPersonToControl(characterForControl);
+        controlDefault = !controlDefault;
     }
     
 
@@ -128,6 +126,9 @@ public class ManagerController : MonoBehaviour
             //
             isSlimeControllSmbdy = false;
             SwitchControll();
+            // 25.10.2024
+            characterByDefault.AmPlayerNow();
+            characterTarget.AmEnemyNow();
             //
             isActiveHostageEmnemy = false;
         }
@@ -159,6 +160,11 @@ public class ManagerController : MonoBehaviour
         playerFollowScript.SetFollowObject(characterTarget, true);
         characterByDefault.SetGravOff();
         isCanGoGround = true;
+        
+        // 25.10.2024
+        // видалити потім /змінити ці теги знизу
+        characterByDefault.AmEnemyNow();
+        characterTarget.AmPlayerNow();
     }
 
     private IEnumerator IsCdOnTakeControllCor()

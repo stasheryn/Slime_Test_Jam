@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerPlayenemy : MonoBehaviour
+public class ControllerPlayenemy : MonoBehaviour, IChangerColliderTag
 {
     // which RB  I control
     // мб брати з ліста/масиву + мати посилання на самого Слайма щоб для зручності
@@ -11,10 +11,15 @@ public class ControllerPlayenemy : MonoBehaviour
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _speed = 1f;
     
+    // colliders to change their TAGs
+    [SerializeField] private Collider body;
+    [SerializeField] private Collider attack;
     
-    private void Movement()
+    
+    public void Movement(Vector2 withoutY)
     {
-        var dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        //var dir = new Vector3(Input.GetAxis("Horizontal"), _rb.velocity.y, Input.GetAxis("Vertical"));
+        var dir = new Vector3(withoutY.x, _rb.velocity.y, withoutY.y);
         //transform.Translate(dir * (_speed * Time.deltaTime));
         _rb.velocity = dir * _speed;
     }
@@ -26,7 +31,7 @@ public class ControllerPlayenemy : MonoBehaviour
 
     private void Update()
     {
-        Movement();
+        //Movement();
     }
 
     public void SetGravOff()
@@ -38,8 +43,35 @@ public class ControllerPlayenemy : MonoBehaviour
     {
         _rb.useGravity = true;
     }
-    // public void SetChildOf()
-    // {
-    //     
-    // }
+    
+    // coliders tag change
+    public void AmEnemyNow()
+    {
+        // if (body != null && attack != null)
+        // {
+        //     body.tag = "Enemy";
+        //     attack.tag = "Enemy";
+        // }
+        if (body != null && attack != null)
+        {
+            body.tag = "Enemy";
+            attack.tag = "Enemy";
+        }
+    }
+
+    public void AmPlayerNow()
+    {
+        // if (body != null && attack != null)
+        // {
+        //     Debug.Log("changed to player");
+        //     body.tag = "Player";
+        //     attack.tag = "Player";
+        // }
+        if (body != null && attack != null)
+        {
+            Debug.Log("changed to player");
+            body.tag = "Player";
+            attack.tag = "Player";
+        }
+    }
 }
